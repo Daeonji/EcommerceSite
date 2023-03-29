@@ -19,14 +19,25 @@ import {
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../Assets/logo.png';
+import * as UserApi from '../../store/Backend/users.api';
+import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 
 function Mainheader() {
+  const [loginUsername, setLoginUsername] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [registerUsername, setRegisterUsername] = useState('');
+  const [registerPassword, setRegisterPassword] = useState('');
+
   const navigate = useNavigate();
   const handleLoginClick = () => {
     navigate('/login');
   };
   const loginDisclosure = useDisclosure();
   const signUpDisclosure = useDisclosure();
+  const CreateUser = async (username: string, password: string) => {
+    const response = await UserApi.PostUser({ username: username, password: password });
+  };
   return (
     <Box maxW='m' borderWidth='1px' borderRadius='lg' overflow='hidden'>
       <HStack spacing='24px'>
@@ -84,7 +95,14 @@ function Mainheader() {
                 <Divider />
                 <HStack>
                   <p style={{ fontWeight: 'bold' }}>Username</p>
-                  <Input variant='filled' placeholder='Username' width='300px'></Input>
+                  <Input
+                    variant='filled'
+                    placeholder='Username'
+                    width='300px'
+                    onChange={(e) => {
+                      setRegisterUsername(e.target.value);
+                    }}
+                  ></Input>
                 </HStack>
                 <HStack>
                   <p style={{ fontWeight: 'bold' }}>Email</p>
@@ -92,7 +110,14 @@ function Mainheader() {
                 </HStack>
                 <HStack>
                   <p style={{ fontWeight: 'bold' }}>Password</p>
-                  <Input variant='filled' placeholder='Password' width='300px'></Input>
+                  <Input
+                    variant='filled'
+                    placeholder='Password'
+                    width='300px'
+                    onChange={(e) => {
+                      setRegisterPassword(e.target.value);
+                    }}
+                  ></Input>
                 </HStack>
                 <Spacer />
                 <HStack>
@@ -102,6 +127,9 @@ function Mainheader() {
                     _hover={{ color: 'red' }}
                     borderRadius='0px'
                     borderWidth='2px'
+                    onClick={async () => {
+                      await CreateUser(registerUsername, registerPassword);
+                    }}
                   >
                     Sign Up
                   </Button>
