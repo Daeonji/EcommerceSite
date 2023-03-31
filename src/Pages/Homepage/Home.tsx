@@ -24,8 +24,6 @@ function Home() {
 
   return (
     <VStack spacing={3} align='stretch'>
-      <Mainheader />
-      <Navbar />
       <Box paddingLeft={'350px'}>
         <p style={{ fontWeight: 'bold', fontSize: '18px' }}>Listings</p>
       </Box>
@@ -53,11 +51,11 @@ function Home() {
 
       <HStack spacing={2}>
         <Spacer />
-        <Outerwear image={tailoring} description='Tailoring' />
-        <Outerwear image={top} description='Tops' />
-        <Outerwear image={bottom} description='Bottoms' />
-        <Outerwear image={foot} description='Footwear' />
-        <Outerwear image={outer} description='Outerwear' />
+        <Outerwear image={tailoring} description='Tailoring' url='/Menswear/Tailoring' />
+        <Outerwear image={top} description='Tops' url='/Menswear/Tops' />
+        <Outerwear image={bottom} description='Bottoms' url='/Menswear/Bottoms' />
+        <Outerwear image={foot} description='Footwear' url='/Menswear/Footwear' />
+        <Outerwear image={outer} description='Outerwear' url='/Menswear/Outerwear' />
         <Spacer />
       </HStack>
     </VStack>
