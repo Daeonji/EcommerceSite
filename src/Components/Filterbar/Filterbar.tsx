@@ -13,7 +13,7 @@ import {
 
 function Filterbar() {
   return (
-    <Accordion defaultIndex={[0]} allowMultiple paddingRight={'200px'}>
+    <Accordion defaultIndex={[0]} allowMultiple>
       <AccordionItem>
         <h2>
           <AccordionButton>
