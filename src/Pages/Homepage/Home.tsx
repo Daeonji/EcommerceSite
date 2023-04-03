@@ -24,8 +24,8 @@ function Home() {
 
   return (
     <VStack spacing={3} align='stretch'>
-      <Box paddingLeft={'350px'}>
-        <p style={{ fontWeight: 'bold', fontSize: '18px' }}>Listings</p>
+      <Box paddingLeft={'330px'}>
+        <p style={{ fontWeight: 'bold', fontSize: '18px' }}>Shop Popular Listings</p>
       </Box>
       <HStack spacing={18}>
         <Spacer />

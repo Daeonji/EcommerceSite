@@ -42,7 +42,13 @@ function Mainheader() {
     <Box maxW='m' borderWidth='1px' borderRadius='lg' overflow='hidden'>
       <HStack spacing='24px'>
         <Spacer />
-        <img src={logo} width='200' height='200'></img>
+        <Button
+          size='20px'
+          onClick={() => navigate('/')}
+          style={{ backgroundColor: 'transparent' }}
+        >
+          <img src={logo} width='200' height='200'></img>
+        </Button>
         <Input variant='filled' placeholder='Search for ' width='500px'></Input>
         <Button
           aria-label='Search database'

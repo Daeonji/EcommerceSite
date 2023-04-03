@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   HStack,
   Menu,
@@ -14,7 +13,6 @@ function Navbar() {
   const designerDisclosure = useDisclosure();
   const mensDisclosure = useDisclosure();
   const womensDisclosure = useDisclosure();
-  const sneakersDisclosure = useDisclosure();
   return (
     <>
       <HStack spacing='24px'>
