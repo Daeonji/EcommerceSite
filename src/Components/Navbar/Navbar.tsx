@@ -9,10 +9,13 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
+import { useNavigate } from 'react-router-dom';
+
 function Navbar() {
   const designerDisclosure = useDisclosure();
   const mensDisclosure = useDisclosure();
   const womensDisclosure = useDisclosure();
+  const navigate = useNavigate();
   return (
     <>
       <HStack spacing='24px'>
@@ -70,7 +73,12 @@ function Navbar() {
           </MenuList>
         </Menu>
         <Spacer />
-        <Button fontWeight={'bold'} _hover={{ textColor: 'red' }} backgroundColor='white'>
+        <Button
+          fontWeight={'bold'}
+          _hover={{ textColor: 'red' }}
+          backgroundColor='white'
+          onClick={() => navigate('Menswear/Footwear')}
+        >
           Sneakers
         </Button>
 
