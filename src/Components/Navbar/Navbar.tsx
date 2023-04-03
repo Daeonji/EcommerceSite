@@ -1,5 +1,6 @@
 import {
   Button,
+  Divider,
   HStack,
   Menu,
   MenuButton,
@@ -85,6 +86,7 @@ function Navbar() {
         <Spacer></Spacer>
         <Spacer></Spacer>
       </HStack>
+      <Divider />
     </>
   );
 }
