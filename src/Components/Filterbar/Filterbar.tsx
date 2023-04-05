@@ -40,7 +40,7 @@ function Filterbar() {
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
-          <p style={{ fontWeight: 'bold' }}>Menswear</p>
+          <p style={{ fontWeight: 'bold' }}>Footwear</p>
           <Stack spacing={2} direction='column'>
             <Checkbox>7</Checkbox>
             <Checkbox>7.5</Checkbox>
@@ -50,6 +50,12 @@ function Filterbar() {
             <Checkbox>9.5</Checkbox>
             <Checkbox>10</Checkbox>
             <Checkbox>10.5</Checkbox>
+          </Stack>
+          <p style={{ fontWeight: 'bold' }}>Menswear</p>
+          <Stack spacing={2} direction='column'>
+            <Checkbox>Small</Checkbox>
+            <Checkbox>Medium</Checkbox>
+            <Checkbox>Large</Checkbox>
           </Stack>
         </AccordionPanel>
       </AccordionItem>

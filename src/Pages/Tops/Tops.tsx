@@ -1,10 +1,10 @@
-import { Divider, HStack, VStack, Spacer } from '@chakra-ui/react';
+import { VStack, Spacer, HStack, Divider } from '@chakra-ui/react';
 import Filterbar from '../../Components/Filterbar/Filterbar';
 import ItemPreview from '../../Components/ItemPreview/ItemPreview';
-import tops from '../../Assets/shirt.webp';
 import SortMenu from '../../Components/SortMenu/SortMenu';
+import tops from '../../Assets/shirt.webp';
 
-function Footwear() {
+function Tops() {
   return (
     <VStack>
       <Spacer />
@@ -131,4 +131,4 @@ function Footwear() {
   );
 }
 
-export default Footwear;
+export default Tops;
