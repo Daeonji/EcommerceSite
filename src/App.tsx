@@ -9,6 +9,7 @@ import Bottoms from './Pages/Bottoms/Bottoms';
 import Outer from './Pages/Outerwear/Outer';
 import Footwear from './Pages/Footwear/Footwear';
 import Product from './Pages/Product/Product';
+import Profile from './Pages/Profile/Profile';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path='/Menswear/Footwear' element={<Footwear />}></Route>
           <Route path='/Menswear/Outerwear' element={<Outer />}></Route>
           <Route path='/Product/:id' element={<Product />}></Route>
+          <Route path='/Profile' element={<Profile />}></Route>
         </Routes>
       </ChakraProvider>
     </BrowserRouter>

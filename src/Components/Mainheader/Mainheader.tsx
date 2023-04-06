@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../Assets/logo.png';
-import * as UserApi from '../../store/Backend/users.api';
+import * as UserApi from '../../store/Backend/Backend.Client';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 
@@ -36,7 +36,10 @@ function Mainheader() {
   const loginDisclosure = useDisclosure();
   const signUpDisclosure = useDisclosure();
   const CreateUser = async (username: string, password: string) => {
-    const response = await UserApi.PostUser({ username: username, password: password });
+    const response = await UserApi.postApiUsers({
+      username: username,
+      password: password,
+    });
   };
   return (
     <Box maxW='m' borderWidth='1px' borderRadius='lg' overflow='hidden'>
@@ -75,6 +78,7 @@ function Mainheader() {
           borderRadius='0px'
           borderWidth='2px'
           _hover={{ borderColor: 'black' }}
+          onClick={() => navigate('/Profile')}
         >
           Shop
         </Button>
