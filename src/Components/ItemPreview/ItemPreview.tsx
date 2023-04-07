@@ -28,7 +28,7 @@ function ItemPreview(prop: ItemPreviewprops) {
   return (
     <Button
       size={'20px'}
-      onClick={() => navigate('/Product')}
+      onClick={() => navigate(`/Product/${prop.id}`)}
       style={{ backgroundColor: 'transparent' }}
     >
       <Container maxW={'200px'}>

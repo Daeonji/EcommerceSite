@@ -26,11 +26,13 @@ export type User = {
   username?: string | null;
   password?: string | null;
   joinDate?: string | null;
+  profileImageUrl: string;
 };
 export type UserDto = {
   id?: number | null;
   username?: string | null;
   joinDate?: string;
+  profileImageUrl?: string | null;
 };
 export type LoginResponse = {
   accessToken?: string | null;

@@ -16,6 +16,7 @@ import { useState } from 'react';
 function App() {
   const [token, setToken] = useState('');
   const [username, setUsername] = useState('');
+  const [profile, setProfileUrl] = useState('');
   return (
     <BrowserRouter>
       <AuthContext.Provider
@@ -24,6 +25,8 @@ function App() {
           setUsername: setUsername,
           authToken: token,
           setAuthToken: setToken,
+          profilePicture: profile,
+          setProfilePicture: setProfileUrl,
         }}
       >
         <ChakraProvider>
@@ -36,7 +39,7 @@ function App() {
             <Route path='/Menswear/Bottoms' element={<Bottoms />}></Route>
             <Route path='/Menswear/Footwear' element={<Footwear />}></Route>
             <Route path='/Menswear/Outerwear' element={<Outer />}></Route>
-            <Route path='/Product' element={<Product />}></Route>
+            <Route path='/Product/:id' element={<Product />}></Route>
             <Route path='/Profile' element={<Profile />}></Route>
           </Routes>
           <Center paddingTop={'130px'}>

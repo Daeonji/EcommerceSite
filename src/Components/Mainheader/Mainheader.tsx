@@ -13,6 +13,7 @@ import {
   VStack,
   Divider,
   useToast,
+  Avatar,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../Assets/logo.png';
@@ -25,6 +26,7 @@ function Mainheader() {
   const [loginPassword, setLoginPassword] = useState('');
   const [registerUsername, setRegisterUsername] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
+  const [registerProfile, setRegisterProfile] = useState('');
 
   const authContext = useAuthContext();
 
@@ -36,10 +38,11 @@ function Mainheader() {
   };
   const loginDisclosure = useDisclosure();
   const signUpDisclosure = useDisclosure();
-  const CreateUser = async (username: string, password: string) => {
+  const CreateUser = async (username: string, password: string, profile: string) => {
     const response = await UserApi.postApiUsers({
       username: username,
       password: password,
+      profileImageUrl: profile,
     });
 
     if (response.status !== 200) {
@@ -67,6 +70,7 @@ function Mainheader() {
     if (loginResponse.status === 200) {
       authContext.setAuthToken(loginResponse.data.accessToken!);
       authContext.setUsername(loginResponse.data.user!.username!);
+      authContext.setProfilePicture(loginResponse.data.user!.profileImageUrl!);
       toast({
         title: 'Account created.',
         description: 'Your account was created!',
@@ -89,6 +93,7 @@ function Mainheader() {
     if (loginResponse.status === 200) {
       authContext.setAuthToken(loginResponse.data.accessToken!);
       authContext.setUsername(loginResponse.data.user!.username!);
+      authContext.setProfilePicture(loginResponse.data.user!.profileImageUrl!);
       toast({
         title: 'Login success!',
         description: 'Your account is logged in!',
@@ -149,135 +154,168 @@ function Mainheader() {
         >
           Shop
         </Button>
-        <Button
-          aria-label='Sign Up'
-          borderRadius='0px'
-          borderWidth='2px'
-          backgroundColor={'black'}
-          textColor='white'
-          borderColor={'black'}
-          _hover={{ textColor: 'red' }}
-          onClick={signUpDisclosure.onOpen}
-        >
-          Sign Up
-        </Button>
-        <Modal isOpen={signUpDisclosure.isOpen} onClose={signUpDisclosure.onClose} isCentered>
-          <ModalOverlay />
-          <ModalContent borderRadius={'0px'} borderColor={'black'} borderWidth='3px'>
-            <ModalHeader fontWeight='bold' fontSize={'40px'}>
-              Create an Account
-            </ModalHeader>
-            <ModalBody>
-              <VStack>
-                <Divider />
-                <HStack>
-                  <p style={{ fontWeight: 'bold' }}>Username</p>
-                  <Input
-                    variant='filled'
-                    placeholder='Username'
-                    width='300px'
-                    onChange={(e) => {
-                      setRegisterUsername(e.target.value);
-                    }}
-                  ></Input>
-                </HStack>
-                <HStack>
-                  <p style={{ fontWeight: 'bold' }}>Email</p>
-                  <Input variant='filled' placeholder='Email' width='300px' left='18px'></Input>
-                </HStack>
-                <HStack>
-                  <p style={{ fontWeight: 'bold' }}>Password</p>
-                  <Input
-                    variant='filled'
-                    placeholder='Password'
-                    width='300px'
-                    onChange={(e) => {
-                      setRegisterPassword(e.target.value);
-                    }}
-                  ></Input>
-                </HStack>
-                <Spacer />
-                <HStack>
-                  <Button
-                    backgroundColor={'black'}
-                    textColor={'white'}
-                    _hover={{ color: 'red' }}
-                    borderRadius='0px'
-                    borderWidth='2px'
-                    onClick={async () => {
-                      await CreateUser(registerUsername, registerPassword);
-                    }}
-                  >
-                    Sign Up
-                  </Button>
-                  <Button onClick={signUpDisclosure.onClose} borderRadius='0px' borderWidth='2px'>
-                    Cancel
-                  </Button>
-                </HStack>
-              </VStack>
-            </ModalBody>
-          </ModalContent>
-        </Modal>
-        <Button
-          aria-label='Login'
-          borderRadius='0px'
-          borderWidth='2px'
-          _hover={{ borderColor: 'black' }}
-          onClick={loginDisclosure.onOpen}
-        >
-          Login
-        </Button>
-        <Modal isOpen={loginDisclosure.isOpen} onClose={loginDisclosure.onClose} isCentered>
-          <ModalOverlay />
-          <ModalContent borderRadius={'0px'} borderColor={'black'} borderWidth='3px'>
-            <ModalHeader fontWeight='bold' fontSize={'40px'}>
+        {!authContext.username ? (
+          <>
+            <Button
+              aria-label='Sign Up'
+              borderRadius='0px'
+              borderWidth='2px'
+              backgroundColor={'black'}
+              textColor='white'
+              borderColor={'black'}
+              _hover={{ textColor: 'red' }}
+              onClick={signUpDisclosure.onOpen}
+            >
+              Sign Up
+            </Button>
+            <Modal isOpen={signUpDisclosure.isOpen} onClose={signUpDisclosure.onClose} isCentered>
+              <ModalOverlay />
+              <ModalContent borderRadius={'0px'} borderColor={'black'} borderWidth='3px'>
+                <ModalHeader fontWeight='bold' fontSize={'40px'}>
+                  Create an Account
+                </ModalHeader>
+                <ModalBody>
+                  <VStack>
+                    <Divider />
+                    <HStack>
+                      <p style={{ fontWeight: 'bold' }}>Username</p>
+                      <Input
+                        variant='filled'
+                        placeholder='Username'
+                        width='300px'
+                        onChange={(e) => {
+                          setRegisterUsername(e.target.value);
+                        }}
+                      ></Input>
+                    </HStack>
+                    <HStack>
+                      <p style={{ fontWeight: 'bold' }}>Email</p>
+                      <Input variant='filled' placeholder='Email' width='300px' left='18px'></Input>
+                    </HStack>
+                    <HStack>
+                      <p style={{ fontWeight: 'bold' }}>Password</p>
+                      <Input
+                        variant='filled'
+                        placeholder='Password'
+                        width='300px'
+                        onChange={(e) => {
+                          setRegisterPassword(e.target.value);
+                        }}
+                      ></Input>
+                    </HStack>
+                    <HStack>
+                      <p style={{ fontWeight: 'bold' }}>Profile Picture</p>
+                      <Input
+                        variant='filled'
+                        placeholder='Profile Image URL'
+                        width='300px'
+                        onChange={(e) => {
+                          setRegisterProfile(e.target.value);
+                        }}
+                      ></Input>
+                    </HStack>
+                    <Spacer />
+                    <HStack>
+                      <Button
+                        backgroundColor={'black'}
+                        textColor={'white'}
+                        _hover={{ color: 'red' }}
+                        borderRadius='0px'
+                        borderWidth='2px'
+                        onClick={async () => {
+                          await CreateUser(registerUsername, registerPassword, registerProfile);
+                        }}
+                      >
+                        Sign Up
+                      </Button>
+                      <Button
+                        onClick={signUpDisclosure.onClose}
+                        borderRadius='0px'
+                        borderWidth='2px'
+                      >
+                        Cancel
+                      </Button>
+                    </HStack>
+                  </VStack>
+                </ModalBody>
+              </ModalContent>
+            </Modal>
+            <Button
+              aria-label='Login'
+              borderRadius='0px'
+              borderWidth='2px'
+              _hover={{ borderColor: 'black' }}
+              onClick={loginDisclosure.onOpen}
+            >
               Login
-            </ModalHeader>
-            <ModalBody>
-              <VStack padding={'20px'}>
-                <Divider />
-                <HStack>
-                  <p>Username</p>
-                  <Input
-                    variant='filled'
-                    width='300px'
-                    onChange={(e) => {
-                      setLoginUsername(e.target.value);
-                    }}
-                  ></Input>
-                </HStack>
-                <HStack>
-                  <p>Password</p>
-                  <Input
-                    variant='filled'
-                    width='300px'
-                    onChange={(e) => {
-                      setLoginPassword(e.target.value);
-                    }}
-                  ></Input>
-                </HStack>
-                <Spacer />
-                <HStack>
-                  <Button
-                    backgroundColor={'black'}
-                    textColor={'white'}
-                    _hover={{ color: 'red' }}
-                    borderRadius='0px'
-                    borderWidth='2px'
-                    onClick={() => {
-                      login(loginUsername, loginPassword);
-                    }}
-                  >
-                    Login
-                  </Button>
-                  <Button onClick={loginDisclosure.onClose} borderRadius='0px' borderWidth='2px'>
-                    Cancel
-                  </Button>
-                </HStack>
-              </VStack>
-            </ModalBody>
-          </ModalContent>
-        </Modal>
+            </Button>
+            <Modal isOpen={loginDisclosure.isOpen} onClose={loginDisclosure.onClose} isCentered>
+              <ModalOverlay />
+              <ModalContent borderRadius={'0px'} borderColor={'black'} borderWidth='3px'>
+                <ModalHeader fontWeight='bold' fontSize={'40px'}>
+                  Login
+                </ModalHeader>
+                <ModalBody>
+                  <VStack padding={'20px'}>
+                    <Divider />
+                    <HStack>
+                      <p>Username</p>
+                      <Input
+                        variant='filled'
+                        width='300px'
+                        onChange={(e) => {
+                          setLoginUsername(e.target.value);
+                        }}
+                      ></Input>
+                    </HStack>
+                    <HStack>
+                      <p>Password</p>
+                      <Input
+                        variant='filled'
+                        width='300px'
+                        onChange={(e) => {
+                          setLoginPassword(e.target.value);
+                        }}
+                      ></Input>
+                    </HStack>
+                    <Spacer />
+                    <HStack>
+                      <Button
+                        backgroundColor={'black'}
+                        textColor={'white'}
+                        _hover={{ color: 'red' }}
+                        borderRadius='0px'
+                        borderWidth='2px'
+                        onClick={() => {
+                          login(loginUsername, loginPassword);
+                        }}
+                      >
+                        Login
+                      </Button>
+                      <Button
+                        onClick={loginDisclosure.onClose}
+                        borderRadius='0px'
+                        borderWidth='2px'
+                      >
+                        Cancel
+                      </Button>
+                    </HStack>
+                  </VStack>
+                </ModalBody>
+              </ModalContent>
+            </Modal>
+          </>
+        ) : (
+          <Button
+            background={'transparent'}
+            _hover={{ background: 'transparent' }}
+            onClick={() => {
+              navigate('/profile');
+            }}
+          >
+            <Avatar size='md' src={authContext.profilePicture} />
+          </Button>
+        )}
         <Spacer />
       </HStack>
     </Box>

@@ -16,19 +16,24 @@ import {
 import { Link } from 'react-router-dom';
 import Filterbar from '../../Components/Filterbar/Filterbar';
 import SortMenu from '../../Components/SortMenu/SortMenu';
+import { useAuthContext } from '../../store/context/AuthContext';
 
 function Profile() {
+  const authContext = useAuthContext();
+
+  if (!authContext.username) return <p>Not logged in</p>;
+
   return (
     <VStack paddingTop={'50px'}>
       <HStack>
         <Wrap>
           <WrapItem>
             <Button size='200px' style={{ backgroundColor: 'transparent' }} left='120px'>
-              <Avatar size='xl' />
+              <Avatar size='xl' src={authContext.profilePicture} />
             </Button>
             <VStack spacing={0}>
               <p style={{ fontWeight: 'bold', fontSize: '30px', paddingRight: '875px' }}>
-                Username
+                {authContext.username}
               </p>
               <p style={{ fontSize: '16px', paddingRight: '905px' }}>Joined in 2016</p>
               <p style={{ fontSize: '16px', paddingRight: '940px' }}>★★★★★</p>
