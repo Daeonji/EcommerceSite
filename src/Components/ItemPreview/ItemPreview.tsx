@@ -9,12 +9,18 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+
+export const SizeMap: { [key: number]: string } = { 1: 'S', 2: 'M', 3: 'L' };
+
 export type ItemPreviewprops = {
   dateposted: number;
+  originalPrice?: number;
+  price?: number;
   image: string;
   description: string;
   brand: string;
   id: number;
+  size?: number;
 };
 
 function ItemPreview(prop: ItemPreviewprops) {
@@ -36,12 +42,12 @@ function ItemPreview(prop: ItemPreviewprops) {
           <HStack w='165px'>
             <p style={{ fontWeight: 'bold' }}>{prop.brand}</p>
             <Spacer />
-            <p style={{ fontWeight: 'bold' }}>L</p>
+            <p style={{ fontWeight: 'bold' }}>{SizeMap[prop.size ?? 3]}</p>
           </HStack>
           <p>{prop.description}</p>
           <HStack w='170px'>
-            <p style={{ color: 'red' }}>$140</p>
-            <s>$900</s>
+            <p style={{ color: 'red' }}>${prop.price}</p>
+            <s>${prop.originalPrice}</s>
             <Spacer />
             <p>❤</p>
           </HStack>

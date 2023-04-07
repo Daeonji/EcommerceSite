@@ -1,9 +1,5 @@
 import {
-  AbsoluteCenter,
   Box,
-  Center,
-  Grid,
-  GridItem,
   HStack,
   Button,
   Input,
@@ -16,18 +12,23 @@ import {
   ModalBody,
   VStack,
   Divider,
+  useToast,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../Assets/logo.png';
 import * as UserApi from '../../store/Backend/Backend.Client';
-import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { useAuthContext } from '../../store/context/AuthContext';
 
 function Mainheader() {
   const [loginUsername, setLoginUsername] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [registerUsername, setRegisterUsername] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
+
+  const authContext = useAuthContext();
+
+  const toast = useToast();
 
   const navigate = useNavigate();
   const handleLoginClick = () => {
@@ -40,7 +41,73 @@ function Mainheader() {
       username: username,
       password: password,
     });
+
+    if (response.status !== 200) {
+      console.error(response);
+      signUpDisclosure.onClose();
+      toast({
+        title: 'Could not create account...',
+        description: 'Your account was not created.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    console.log(response);
+
+    const loginResponse = await UserApi.postApiUsersLogin({
+      username: username,
+      password: password,
+    });
+
+    console.log(loginResponse);
+
+    if (loginResponse.status === 200) {
+      authContext.setAuthToken(loginResponse.data.accessToken!);
+      authContext.setUsername(loginResponse.data.user!.username!);
+      toast({
+        title: 'Account created.',
+        description: 'Your account was created!',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+    signUpDisclosure.onClose();
   };
+
+  const login = async (username: string, password: string) => {
+    const loginResponse = await UserApi.postApiUsersLogin({
+      username: username,
+      password: password,
+    });
+
+    console.log(loginResponse);
+
+    if (loginResponse.status === 200) {
+      authContext.setAuthToken(loginResponse.data.accessToken!);
+      authContext.setUsername(loginResponse.data.user!.username!);
+      toast({
+        title: 'Login success!',
+        description: 'Your account is logged in!',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: 'Login failed...',
+        description: 'Unable to login with those creds',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+    loginDisclosure.onClose();
+  };
+
   return (
     <Box maxW='m' borderWidth='1px' borderRadius='lg' overflow='hidden'>
       <HStack spacing='24px'>
@@ -171,11 +238,23 @@ function Mainheader() {
                 <Divider />
                 <HStack>
                   <p>Username</p>
-                  <Input variant='filled' width='300px'></Input>
+                  <Input
+                    variant='filled'
+                    width='300px'
+                    onChange={(e) => {
+                      setLoginUsername(e.target.value);
+                    }}
+                  ></Input>
                 </HStack>
                 <HStack>
                   <p>Password</p>
-                  <Input variant='filled' width='300px'></Input>
+                  <Input
+                    variant='filled'
+                    width='300px'
+                    onChange={(e) => {
+                      setLoginPassword(e.target.value);
+                    }}
+                  ></Input>
                 </HStack>
                 <Spacer />
                 <HStack>
@@ -185,6 +264,9 @@ function Mainheader() {
                     _hover={{ color: 'red' }}
                     borderRadius='0px'
                     borderWidth='2px'
+                    onClick={() => {
+                      login(loginUsername, loginPassword);
+                    }}
                   >
                     Login
                   </Button>

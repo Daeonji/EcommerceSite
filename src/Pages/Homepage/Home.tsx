@@ -9,18 +9,25 @@ import top from '../../Assets/tops.webp';
 import bottom from '../../Assets/bottoms.webp';
 import foot from '../../Assets/footwear.webp';
 import outer from '../../Assets/outerwear.webp';
+import * as backend from '../../store/Backend/Backend.Client';
+import { useEffect, useState } from 'react';
 
 function Home() {
-  const items: ItemPreviewprops[] = [];
-  for (let i = 0; i < 6; i++) {
-    items.push({
-      dateposted: 10,
-      image: shirt,
-      description: 'Supreme Hoodie',
-      brand: 'Supreme',
-      id: i,
-    });
-  }
+  const [items, setItems] = useState<backend.Product[]>();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await backend.getApiProducts();
+
+      if (response.status === 200) {
+        setItems(response.data);
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <VStack spacing={3} align='stretch' paddingTop={'30px'}>
@@ -29,20 +36,27 @@ function Home() {
       </Box>
       <HStack spacing={18}>
         <Spacer />
-        {items.map((item) => {
-          return (
-            <>
-              <ItemPreview
-                key={item.id}
-                id={item.id}
-                dateposted={item.dateposted}
-                image={item.image}
-                description={item.description}
-                brand={item.brand}
-              />
-            </>
-          );
-        })}
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          items!.map((item) => {
+            return (
+              <li key={item.id} style={{ listStyleType: 'none' }}>
+                <ItemPreview
+                  key={item.id!}
+                  id={item.id!}
+                  dateposted={2}
+                  image={item.imageUrl!}
+                  description={item.description!}
+                  brand={item.designer!}
+                  price={item.price!}
+                  originalPrice={item.originalPrice!}
+                  size={item.size!}
+                />
+              </li>
+            );
+          })
+        )}
         <Spacer />
       </HStack>
       <Box paddingLeft={'350px'}>

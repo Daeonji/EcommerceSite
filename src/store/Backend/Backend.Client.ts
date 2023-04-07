@@ -32,6 +32,10 @@ export type UserDto = {
   username?: string | null;
   joinDate?: string;
 };
+export type LoginResponse = {
+  accessToken?: string | null;
+  user?: UserDto;
+};
 export function postApiProducts(product?: Product, opts?: Oazapfts.RequestOpts) {
   return oazapfts.fetchJson<
     | {
@@ -80,7 +84,7 @@ export function getApiProductsById(id: number, opts?: Oazapfts.RequestOpts) {
     | {
         status: 500;
       }
-  >(`/api/Products/${encodeURIComponent(id)}`, {
+  >(`/api/Products/${id}`, {
     ...opts,
   });
 }
@@ -119,7 +123,7 @@ export function getApiUsersByUserId(userId: number, opts?: Oazapfts.RequestOpts)
     | {
         status: 500;
       }
-  >(`/api/Users/${encodeURIComponent(userId)}`, {
+  >(`/api/Users/${userId}`, {
     ...opts,
   });
 }
@@ -136,7 +140,7 @@ export function postApiUsersLogin(
   return oazapfts.fetchJson<
     | {
         status: 200;
-        data: UserDto;
+        data: LoginResponse;
       }
     | {
         status: 401;
@@ -147,7 +151,7 @@ export function postApiUsersLogin(
       }
   >(
     `/api/Users/login${QS.query(
-      QS.explode({
+      QS.form({
         username,
         password,
       }),
