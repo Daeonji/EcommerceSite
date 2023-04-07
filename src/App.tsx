@@ -36,7 +36,7 @@ function App() {
             <Route path='/Menswear/Bottoms' element={<Bottoms />}></Route>
             <Route path='/Menswear/Footwear' element={<Footwear />}></Route>
             <Route path='/Menswear/Outerwear' element={<Outer />}></Route>
-            <Route path='/Product/:id' element={<Product />}></Route>
+            <Route path='/Product' element={<Product />}></Route>
             <Route path='/Profile' element={<Profile />}></Route>
           </Routes>
           <Center paddingTop={'130px'}>
