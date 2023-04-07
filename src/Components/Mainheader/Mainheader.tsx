@@ -142,6 +142,7 @@ function Mainheader() {
           borderRadius='0px'
           borderWidth='2px'
           _hover={{ borderColor: 'black' }}
+          onClick={() => navigate('/Sell')}
         >
           Sell
         </Button>

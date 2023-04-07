@@ -12,6 +12,7 @@ import Product from './Pages/Product/Product';
 import Profile from './Pages/Profile/Profile';
 import { AuthContext } from './store/context/AuthContext';
 import { useState } from 'react';
+import Sell from './Pages/Listings/Sell';
 
 function App() {
   const [token, setToken] = useState('');
@@ -41,6 +42,7 @@ function App() {
             <Route path='/Menswear/Outerwear' element={<Outer />}></Route>
             <Route path='/Product/:id' element={<Product />}></Route>
             <Route path='/Profile' element={<Profile />}></Route>
+            <Route path='/Sell' element={<Sell />}></Route>
           </Routes>
           <Center paddingTop={'130px'}>
             {username ? <p>Logged in as {username}</p> : <p>Not logged in.</p>}
