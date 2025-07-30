@@ -1,46 +1,63 @@
-# Getting Started with Create React App
+# 🛍️ Clothing eCommerce Frontend App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a responsive frontend application for a clothing eCommerce store, built using **React**. It serves as my **first attempt at designing a frontend app** from scratch using React.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 💡 Project Overview
 
-### `npm start`
+The app allows users to browse a catalog of clothing items, view item details, and simulate a shopping cart experience. It's built to practice core frontend concepts including:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* React components
+* Routing
+* State management
+* Responsive layout
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+---
 
-### `npm test`
+## 🔑 Key Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* **Product Listings** – Display clothing items with images, names, and prices
+* **Product Detail Pages** – Navigate to individual item pages
+* **Shopping Cart (UI only)** – Add and remove items
+* **Navigation Bar** – Seamless page transitions using React Router
+* **Mobile Responsive Design** – Built with modern CSS techniques
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## ⚙️ Technologies Used
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* React
+* React Router DOM
+* Typescript
+* CSS 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🗂️ Project Structure
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+src/
+├── Components/      # Reusable UI components (e.g. Navbar, ProductCard)
+├── Pages/           # Page components (e.g. Home, ProductDetail)
+├── Assets/          # Static images, icons, etc.
+├── App.tsx           # App layout and route definitions
+└── index.tsx         # Entry point
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 🙋 About the Author
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+My name is **Danny Pham**, and this is my **first frontend project using React**. The purpose of this project was to learn and apply key frontend development skills.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🚧 Future Improvements
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* Connect to a backend API for live product data
+* Implement authentication and user accounts
+* Enable real cart persistence and checkout functionality
+* Polish animations and accessibility
+
+---
